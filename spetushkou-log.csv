@@ -1,3 +1,2 @@
 [DATE];[USER];[ACTION]
-2023-08-31T12:24:21.257Z;spetushkou;Error: Command failed: git clone git@github.com:raven-devs/create-be-template.git temp1 fatal: destination path temp1 already exists and is not an empty directory.
-
+2023-08-31T12:26:16.546Z;spetushkou;[package-install]: initialize a remote git repo done
