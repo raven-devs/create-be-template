@@ -16,7 +16,9 @@ const { userId, repoId, repoDescription, repoKeywords } = initConfig;
 const repoFullName = `${userId}/${repoId}`;
 const repoGitUrl = `git@github.com:${userId}/${repoId}.git`;
 const binName = '[package-init]:';
+
 const logger = new FileLogger();
+await logger.clear();
 
 const initPackage = () => {
   const path = 'package.json';
@@ -26,7 +28,8 @@ const initPackage = () => {
   const repoBugsUrl = `${repoHttpUrl}/issues`;
 
   if (!fs.existsSync(path)) {
-    throw new Error(`${path} does not exist.`);
+    logger.error(`${path} does not exist.`);
+    process.exit(1);
   }
 
   const packageRawData = fs.readFileSync(path);
@@ -118,7 +121,8 @@ const repoExists = async () => {
     if (error.code === 128) {
       return false;
     } else {
-      throw error;
+      logger.error(error);
+      process.exit(1);
     }
   }
 };
@@ -158,64 +162,78 @@ const initGit = async () => {
 };
 
 const npmInstall = async () => {
-  const npmInstall = child_process.spawn('npm', ['install']);
+  try {
+    const npmInstall = child_process.spawn('npm', ['install']);
 
-  npmInstall.stdout.on('data', function (data) {
-    process.stdout.write(data.toString());
-  });
-  npmInstall.stderr.on('data', function (data) {
-    process.stderr.write(data.toString());
-  });
-  npmInstall.on('close', function (code) {
-    process.stdout.end();
-    process.stderr.end();
-    process.exit(0);
-  });
+    npmInstall.stdout.on('data', function (data) {
+      process.stdout.write(data.toString());
+    });
+    npmInstall.stderr.on('data', function (data) {
+      process.stderr.write(data.toString());
+    });
+    npmInstall.on('close', function (code) {
+      process.stdout.end();
+      process.stderr.end();
+      process.exit(0);
+    });
+  } catch (error) {
+    logger.error(error);
+    process.exit(1);
+  }
 };
 
 const run = async () => {
-  if (!userId || !repoId) {
-    throw new Error('Repo config is not valid.');
+  try {
+    if (!userId || !repoId) {
+      logger.error('Repo config is not valid.');
+      process.exit(1);
+    }
+
+    removeFile('bin/git-log');
+    removeFile('bin/husky-install');
+    removeFile('bin/husky-uninstall');
+    removeFile('bin/package-init');
+    removeFile('bin/package-init.config.json');
+    removeFile('bin/package-install-template');
+    removeFile('bin/package-install-template.config.json');
+    removeFile('package-lock.json');
+
+    removeDir('.github');
+    removeDir('doc');
+    removeDir('node_modules');
+
+    await logger.log(binName, 'prepare local project', 'done');
+
+    initPackage();
+    await logger.log(binName, 'initialize package.json', 'done');
+
+    await npmInstall();
+    await logger.log(binName, 'npm install', 'done');
+
+    initChangelog();
+    await logger.log(binName, 'initialize CHANGELOG.md', 'done');
+
+    initTodo();
+    await logger.log(binName, 'initialize TODO', 'done');
+
+    initReadme();
+    await logger.log(binName, 'initialize README.md', 'done');
+
+    const repoInitialized = await initRepo();
+    if (!repoInitialized) {
+      logger.error('Repo not initialized.');
+      process.exit(1);
+    }
+    await logger.log(binName, 'initialize a remote git repo', 'done');
+
+    await initGit();
+    await logger.log(binName, 'initialize a local git repo', 'done');
+  } catch (error) {
+    logger.error(error);
+    process.exit(1);
   }
-
-  removeFile('bin/git-log');
-  removeFile('bin/husky-install');
-  removeFile('bin/husky-uninstall');
-  removeFile('bin/package-init');
-  removeFile('bin/package-init.config.json');
-  removeFile('bin/package-install-template');
-  removeFile('bin/package-install-template.config.json');
-  removeFile('package-lock.json');
-
-  removeDir('.github');
-  removeDir('doc');
-  removeDir('node_modules');
-
-  await logger.log(binName, 'prepare local project', 'done');
-
-  initPackage();
-  await logger.log(binName, 'initialize package.json', 'done');
-
-  await npmInstall();
-  await logger.log(binName, 'npm install', 'done');
-
-  initChangelog();
-  await logger.log(binName, 'initialize CHANGELOG.md', 'done');
-
-  initTodo();
-  await logger.log(binName, 'initialize TODO', 'done');
-
-  initReadme();
-  await logger.log(binName, 'initialize README.md', 'done');
-
-  const repoInitialized = await initRepo();
-  if (!repoInitialized) {
-    throw new Error('Repo not initialized.');
-  }
-  await logger.log(binName, 'initialize a remote git repo', 'done');
-
-  await initGit();
-  await logger.log(binName, 'initialize a local git repo', 'done');
 };
 
-run();
+run()
+  .then()
+  .catch((error) => logger.error(error));

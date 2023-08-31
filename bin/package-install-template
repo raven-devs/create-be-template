@@ -16,22 +16,31 @@ const packageInitConfigJson = JSON.stringify(packageInitConfig, null, 2);
 const templateRepoUrl = package.repository.url;
 const binName = '[package-install]:';
 
+const logger = new FileLogger();
+await logger.clear();
+
 const installFromTemplate = async () => {
-  if (!userId || !repoId) {
-    throw new Error('Repo config is not valid.');
+  try {
+    if (!userId || !repoId) {
+      logger.error('Repo config is not valid.');
+      process.exit(1);
+    }
+
+    await exec(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
+    await exec(`echo '${packageInitConfigJson}' > bin/package-init.config.json`, {
+      cwd: `../${repoId}`,
+    });
+
+    await logger.log(binName, 'initialize a remote git repo', 'done');
+
+    await exec(`node bin/package-init`, { cwd: `../${repoId}` });
+    await exec(`code .`, { cwd: `../${repoId}` });
+  } catch (error) {
+    logger.error(error);
+    process.exit(1);
   }
-
-  const logger = new FileLogger();
-
-  await exec(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
-  await exec(`echo '${packageInitConfigJson}' > bin/package-init.config.json`, {
-    cwd: `../${repoId}`,
-  });
-
-  await logger.log(binName, 'initialize a remote git repo', 'done');
-
-  await exec(`node bin/package-init`, { cwd: `../${repoId}` });
-  await exec(`code .`, { cwd: `../${repoId}` });
 };
 
-installFromTemplate();
+installFromTemplate()
+  .then()
+  .catch((error) => logger.error(error));
