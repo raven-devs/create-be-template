@@ -114,7 +114,9 @@ const initReadme = () => {
 
 const remoteRepoExists = async () => {
   try {
+    await logger.log(binName, `state1`);
     await exec(`git ls-remote ${repoGitUrl}`);
+    await logger.log(binName, `state2`);
     return true;
   } catch (error) {
     // repo not found
@@ -129,20 +131,32 @@ const remoteRepoExists = async () => {
 
 const initRemoteRepo = async () => {
   try {
+    await logger.log(binName, `state3`);
     const shouldDeleteRepo = await remoteRepoExists();
+    await logger.log(binName, `state4`);
     if (shouldDeleteRepo) {
+      await logger.log(binName, `state5`);
       await exec(`gh repo delete ${repoFullName} --yes`);
+      await logger.log(binName, `state6`);
       await logger.log(binName, `remote repo delete ${repoFullName}`, 'done');
+      await logger.log(binName, `state7`);
     }
 
+    await logger.log(binName, `state8`);
     await exec(`gh repo create ${repoFullName} --public --description "${repoDescription}"`);
+    await logger.log(binName, `state9`);
     const repoCreated = await remoteRepoExists();
+    await logger.log(binName, `state9`);
     if (!repoCreated) {
+      await logger.log(binName, `state10`);
       logger.error('Remote repo not created.');
+      await logger.log(binName, `state11`);
       process.exit(1);
     }
 
+    await logger.log(binName, `state12`);
     await logger.log(binName, `remote repo create ${repoFullName}`, 'done');
+    await logger.log(binName, `state13`);
   } catch (error) {
     logger.error(error);
     process.exit(1);
