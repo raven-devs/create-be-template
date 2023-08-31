@@ -1,2 +1,2 @@
 [DATE];[USER];[ACTION]
-2023-08-31T15:03:59.738Z;spetushkou;ReferenceError: error is not defined
+2023-08-31T15:07:01.507Z;spetushkou;TypeError: console.erorr is not a function
