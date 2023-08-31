@@ -194,6 +194,7 @@ const main = async () => {
     removeFile('bin/git-log');
     removeFile('bin/husky-install');
     removeFile('bin/husky-uninstall');
+    removeFile('bin/logger.js');
     removeFile('bin/package-bootstrap');
     removeFile('bin/package-bootstrap.config.json');
     removeFile('bin/package-install');
