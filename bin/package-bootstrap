@@ -24,8 +24,7 @@ const execCommand = async (command, options) => {
   try {
     const { stdout, stderr } = await exec(command, options);
     if (stderr) {
-      logger.error(error);
-      process.exit(1);
+      logger.error(stderr);
     }
 
     return stdout;
@@ -172,15 +171,16 @@ const npmInstall = async () => {
     const npmInstall = child_process.spawn('npm', ['install']);
 
     npmInstall.stdout.on('data', function (data) {
+      logger.log(data.toString());
       process.stdout.write(data.toString());
     });
     npmInstall.stderr.on('data', function (data) {
+      logger.error(data.toString());
       process.stderr.write(data.toString());
     });
     npmInstall.on('close', function (code) {
       process.stdout.end();
       process.stderr.end();
-      process.exit(0);
     });
   } catch (error) {
     logger.error(error);

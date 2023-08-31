@@ -29,7 +29,7 @@ class BaseLogger {
 
   formatErrorMessage(errorMessage) {
     // replace new lines with a white space
-    return errorMessage.toString().replace(/\r?\n|\r/, ' ');
+    return JSON.stringify(errorMessage.join(' '));
   }
 
   async clear() {

@@ -21,7 +21,7 @@ const execCommand = async (command, options) => {
   try {
     const { stdout, stderr } = await exec(command, options);
     if (stderr) {
-      logger.error(error);
+      logger.error(stderr);
       process.exit(1);
     }
 
@@ -41,7 +41,7 @@ const main = async () => {
       process.exit(1);
     }
 
-    await execCommand(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
+    // await execCommand(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
     await execCommand(`echo '${packageBootstrapConfig}' > bin/package-bootstrap.config.json`, {
       cwd: `../${repoId}`,
     });
