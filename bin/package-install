@@ -22,7 +22,6 @@ const execCommand = async (command, options) => {
     const { stdout, stderr } = await exec(command, options);
     if (stderr) {
       logger.error(stderr);
-      process.exit(1);
     }
 
     return stdout;
