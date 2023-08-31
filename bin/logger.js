@@ -27,6 +27,10 @@ class BaseLogger {
     return `${this.prefix}${message.join(' ')}`;
   }
 
+  async clear() {
+    // abstract
+  }
+
   async log(message) {
     // abstract
   }
@@ -39,6 +43,10 @@ class BaseLogger {
 class ConsoleLogger extends BaseLogger {
   constructor() {
     super({ logDate: false, logUser: false });
+  }
+
+  async clear() {
+    console.clear();
   }
 
   async log(...message) {
@@ -56,6 +64,10 @@ class FileLogger extends BaseLogger {
   constructor(path) {
     super({ logDate: true, logUser: true });
     this.path = path ?? this.defaultPath;
+  }
+
+  async clear() {
+    await exec(`echo '[DATE]${this.delimiter}[USER]${this.delimiter}[ACTION]' > ${this.path}`);
   }
 
   async log(...message) {
