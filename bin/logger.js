@@ -27,6 +27,11 @@ class BaseLogger {
     return `${this.prefix}${message.join(' ')}`;
   }
 
+  formatErrorMessage(errorMessage) {
+    // replace new lines with a white space
+    return errorMessage.toString().replace(/\r?\n|\r/, ' ');
+  }
+
   async clear() {
     // abstract
   }
@@ -54,7 +59,8 @@ class ConsoleLogger extends BaseLogger {
   }
 
   async error(...message) {
-    console.error(this.format(message));
+    const errorMessage = this.formatErrorMessage(message);
+    console.error(this.format(errorMessage));
   }
 }
 
@@ -75,7 +81,7 @@ class FileLogger extends BaseLogger {
   }
 
   async error(...message) {
-    await this.log(message);
+    await this.log(this.formatErrorMessage(message));
   }
 }
 
