@@ -171,11 +171,11 @@ const npmInstall = async () => {
     const npmInstall = child_process.spawn('npm', ['install']);
 
     npmInstall.stdout.on('data', function (data) {
-      logger.log(data.toString());
+      logger.log(JSON.stringify(data));
       process.stdout.write(data.toString());
     });
     npmInstall.stderr.on('data', function (data) {
-      logger.error(data.toString());
+      logger.error(JSON.stringify(data));
       process.stderr.write(data.toString());
     });
     npmInstall.on('close', function (code) {
