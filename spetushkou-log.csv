@@ -1,7 +1,7 @@
 [DATE];[USER];[ACTION]
-2023-08-31T16:05:05.397Z;spetushkou;"Cloning into test2...
+2023-08-31T16:09:36.480Z;spetushkou;"Cloning into test1...
 "
-2023-08-31T16:05:05.402Z;spetushkou;[package-install]: initialize a remote git repo test2 done
-2023-08-31T16:05:05.405Z;spetushkou;[package-install]: successfull
-2023-08-31T16:05:11.422Z;spetushkou;"npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+2023-08-31T16:09:36.486Z;spetushkou;[package-install]: initialize a remote git repo test1 done
+2023-08-31T16:09:36.489Z;spetushkou;[package-install]: successfull
+2023-08-31T16:09:36.824Z;spetushkou;"Error: Command failed: node bin/package-bootstrap
 "

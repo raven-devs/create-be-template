@@ -20,7 +20,7 @@ const binName = '[package-bootstrap]:';
 
 const logger = new FileLogger();
 
-const execCommand = async (command, options) => {
+const execCommand = async (command, options, rethrowError = false) => {
   try {
     const { stdout, stderr } = await exec(command, options);
     if (stderr) {
@@ -29,6 +29,9 @@ const execCommand = async (command, options) => {
 
     return stdout;
   } catch (error) {
+    if (rethrowError) {
+      throw error;
+    }
     logger.error(error);
     process.exit(1);
   }
@@ -129,7 +132,7 @@ const initReadme = () => {
 const initRemoteRepo = async () => {
   try {
     try {
-      await execCommand(`gh repo delete ${repoFullName} --yes`);
+      await execCommand(`gh repo delete ${repoFullName} --yes`, {}, true);
       await logger.log(binName, `remote repo delete ${repoFullName}`, 'done');
     } catch (error) {
       if (error.code === 1) {
