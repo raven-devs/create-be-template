@@ -17,10 +17,11 @@ const templateRepoUrl = package.repository.url;
 const binName = '[package-install]:';
 
 const logger = new FileLogger();
-await logger.clear();
 
-const installFromTemplate = async () => {
+const main = async () => {
   try {
+    await logger.clear();
+
     if (!userId || !repoId) {
       logger.error('Repo config is not valid.');
       process.exit(1);
@@ -41,6 +42,6 @@ const installFromTemplate = async () => {
   }
 };
 
-installFromTemplate()
+main()
   .then()
   .catch((error) => logger.error(error));
