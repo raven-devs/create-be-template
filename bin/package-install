@@ -41,7 +41,7 @@ const main = async () => {
       process.exit(1);
     }
 
-    // await execCommand(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
+    await execCommand(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
     await execCommand(`echo '${packageBootstrapConfig}' > bin/package-bootstrap.config.json`, {
       cwd: `../${repoId}`,
     });
