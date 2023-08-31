@@ -1,7 +1,7 @@
 [DATE];[USER];[ACTION]
-2023-08-31T16:01:53.943Z;spetushkou;"Cloning into test2...
+2023-08-31T16:05:05.397Z;spetushkou;"Cloning into test2...
 "
-2023-08-31T16:01:53.951Z;spetushkou;[package-install]: initialize a remote git repo test2 done
-2023-08-31T16:01:53.956Z;spetushkou;[package-install]: successfull
-2023-08-31T16:02:25.083Z;spetushkou;"npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+2023-08-31T16:05:05.402Z;spetushkou;[package-install]: initialize a remote git repo test2 done
+2023-08-31T16:05:05.405Z;spetushkou;[package-install]: successfull
+2023-08-31T16:05:11.422Z;spetushkou;"npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
 "
