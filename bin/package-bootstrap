@@ -185,10 +185,12 @@ const main = async () => {
     removeFile('bin/git-log');
     removeFile('bin/husky-install');
     removeFile('bin/husky-uninstall');
-    removeFile('bin/logger.js');
+    // removeFile('bin/logger.js');
     removeFile('bin/package-install');
     removeFile('bin/package-install.config.json');
     removeFile('package-lock.json');
+    // removeFile('bin/package-bootstrap');
+    // removeFile('bin/package-bootstrap.config.json');
 
     removeDir('.github');
     removeDir('doc');
@@ -216,9 +218,6 @@ const main = async () => {
 
     await initLocalRepo();
     await logger.log(binName, 'initialize a local git repo', 'done');
-
-    // removeFile('bin/package-bootstrap');
-    // removeFile('bin/package-bootstrap.config.json');
 
     await logger.log(binName, 'successfull');
   } catch (error) {
