@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+# chmod -R +rwx bin/git-log
+
+git log --pretty="- %s" >GITLOG.md

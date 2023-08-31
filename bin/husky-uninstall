@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+# chmod -R +rwx bin/husky-uninstall
+
+npm uninstall husky && git config --unset core.hooksPath
