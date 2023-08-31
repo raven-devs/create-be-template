@@ -27,6 +27,7 @@ const execCommand = async (command, options) => {
 
     return stdout;
   } catch (error) {
+    console.erorr(error);
     logger.error(error);
     process.exit(1);
   }
@@ -54,6 +55,7 @@ const main = async () => {
 
     await execCommand(`code .`, { cwd: `../${repoId}` });
   } catch (error) {
+    console.erorr(error);
     logger.error(error);
     process.exit(1);
   }
