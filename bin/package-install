@@ -31,7 +31,9 @@ const main = async () => {
       cwd: `../${repoId}`,
     });
 
-    await logger.log(binName, 'initialize a remote git repo', 'done');
+    await logger.log(binName, `initialize a remote git repo ${repoId}`, 'done');
+
+    await logger.log(binName, 'successfull');
 
     await exec(`node bin/package-bootstrap`, { cwd: `../${repoId}` });
     await exec(`code .`, { cwd: `../${repoId}` });
