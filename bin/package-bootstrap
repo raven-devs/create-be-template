@@ -20,6 +20,21 @@ const binName = '[package-bootstrap]:';
 
 const logger = new FileLogger();
 
+const execCommand = async (command) => {
+  try {
+    const { stdout, stderr } = await exec(command);
+    if (stderr) {
+      logger.error(error);
+      process.exit(1);
+    }
+
+    return stdout;
+  } catch (error) {
+    logger.error(error);
+    process.exit(1);
+  }
+};
+
 const initPackage = () => {
   const path = 'package.json';
   const repoScopeName = `@${repoFullName}`;
@@ -115,7 +130,7 @@ const initReadme = () => {
 const initRemoteRepo = async () => {
   try {
     try {
-      await exec(`gh repo delete ${repoFullName} --yes`);
+      await execCommand(`gh repo delete ${repoFullName} --yes`);
       await logger.log(binName, `remote repo delete ${repoFullName}`, 'done');
     } catch (error) {
       if (error.code === 1) {
@@ -126,7 +141,7 @@ const initRemoteRepo = async () => {
       }
     }
 
-    await exec(`gh repo create ${repoFullName} --public --description "${repoDescription}"`);
+    await execCommand(`gh repo create ${repoFullName} --public --description "${repoDescription}"`);
     await logger.log(binName, `remote repo create ${repoFullName}`, 'done');
   } catch (error) {
     logger.error(error);
@@ -136,16 +151,16 @@ const initRemoteRepo = async () => {
 
 const initLocalRepo = async () => {
   try {
-    await exec('rm -rf .git');
-    await exec('git init');
-    await exec('git config user.name spetushkou');
-    await exec('git config user.email sergey.petushkou@gmail.com');
-    await exec(`git remote add origin ${repoGitUrl}`);
-    await exec('git checkout -b main');
-    await exec("git add --all && git commit -m 'chore: init'");
-    await exec('git push -u origin main');
-    await exec('git checkout -b develop');
-    await exec('git push -u origin develop');
+    await execCommand('rm -rf .git');
+    await execCommand('git init');
+    await execCommand('git config user.name spetushkou');
+    await execCommand('git config user.email sergey.petushkou@gmail.com');
+    await execCommand(`git remote add origin ${repoGitUrl}`);
+    await execCommand('git checkout -b main');
+    await execCommand("git add --all && git commit -m 'chore: init'");
+    await execCommand('git push -u origin main');
+    await execCommand('git checkout -b develop');
+    await execCommand('git push -u origin develop');
   } catch (error) {
     logger.error(error);
     process.exit(1);

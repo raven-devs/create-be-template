@@ -17,6 +17,21 @@ const binName = '[package-install]:';
 
 const logger = new FileLogger();
 
+const execCommand = async (command) => {
+  try {
+    const { stdout, stderr } = await exec(command);
+    if (stderr) {
+      logger.error(error);
+      process.exit(1);
+    }
+
+    return stdout;
+  } catch (error) {
+    logger.error(error);
+    process.exit(1);
+  }
+};
+
 const main = async () => {
   try {
     await logger.clear();
@@ -26,8 +41,8 @@ const main = async () => {
       process.exit(1);
     }
 
-    await exec(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
-    await exec(`echo '${packageBootstrapConfig}' > bin/package-bootstrap.config.json`, {
+    await execCommand(`git clone ${templateRepoUrl} ${repoId}`, { cwd: '../' });
+    await execCommand(`echo '${packageBootstrapConfig}' > bin/package-bootstrap.config.json`, {
       cwd: `../${repoId}`,
     });
 
@@ -35,9 +50,9 @@ const main = async () => {
 
     await logger.log(binName, 'successfull');
 
-    await exec(`node bin/package-bootstrap`, { cwd: `../${repoId}` });
+    await execCommand(`node bin/package-bootstrap`, { cwd: `../${repoId}` });
 
-    await exec(`code .`, { cwd: `../${repoId}` });
+    await execCommand(`code .`, { cwd: `../${repoId}` });
   } catch (error) {
     logger.error(error);
     process.exit(1);
