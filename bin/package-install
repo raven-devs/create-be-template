@@ -35,6 +35,7 @@ const main = async () => {
 
     await logger.log(binName, 'successfull');
 
+    await exec(`node bin/package-bootstrap`, { cwd: `../${repoId}` });
     await exec(`code .`, { cwd: `../${repoId}` });
   } catch (error) {
     logger.error(error);
