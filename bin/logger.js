@@ -66,6 +66,15 @@ class ConsoleLogger extends BaseLogger {
 
 class FileLogger extends BaseLogger {
   defaultPath = `${process.cwd()}/${process.env.USER}-log.csv`;
+  _path;
+
+  get path() {
+    return this._path;
+  }
+
+  set path(value) {
+    this._path = value;
+  }
 
   constructor(path) {
     super({ logDate: true, logUser: true });
