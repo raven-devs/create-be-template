@@ -217,8 +217,8 @@ const main = async () => {
     await initLocalRepo();
     await logger.log(binName, 'initialize a local git repo', 'done');
 
-    removeFile('bin/package-bootstrap');
-    removeFile('bin/package-bootstrap.config.json');
+    // removeFile('bin/package-bootstrap');
+    // removeFile('bin/package-bootstrap.config.json');
 
     await logger.log(binName, 'successfull');
   } catch (error) {

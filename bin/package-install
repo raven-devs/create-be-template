@@ -37,7 +37,7 @@ const main = async () => {
 
     await exec(`node bin/package-bootstrap`, { cwd: `../${repoId}` });
 
-    await exec(`code . ../${repoId}/${logger.path}`, { cwd: `../${repoId}` });
+    await exec(`code .`, { cwd: `../${repoId}` });
   } catch (error) {
     logger.error(error);
     process.exit(1);
