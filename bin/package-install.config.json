@@ -1,6 +1,6 @@
 {
   "userId": "raven-devs",
-  "repoId": "curl",
-  "repoDescription": "curl",
-  "repoKeywords": ["curl"]
+  "repoId": "linux-commands",
+  "repoDescription": "Linux commands",
+  "repoKeywords": ["linux", "commands"]
 }
