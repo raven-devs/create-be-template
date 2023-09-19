@@ -1,7 +1,0 @@
-[DATE];[USER];[ACTION]
-2023-09-10T10:03:03.328Z;spetushkou;"Cloning into curl...
-"
-2023-09-10T10:03:03.334Z;spetushkou;[package-install]: initialize a remote git repo curl done
-2023-09-10T10:03:03.337Z;spetushkou;[package-install]: successfull
-2023-09-10T10:03:42.996Z;spetushkou;"npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
-"
