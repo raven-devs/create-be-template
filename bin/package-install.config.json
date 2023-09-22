@@ -1,6 +1,6 @@
 {
   "userId": "raven-devs",
-  "repoId": "linux-commands",
-  "repoDescription": "Linux commands",
-  "repoKeywords": ["linux", "commands"]
+  "repoId": "docker-nodejs-dev-env",
+  "repoDescription": "Docker Nodejs development environment",
+  "repoKeywords": ["docker", "nodejs"]
 }
