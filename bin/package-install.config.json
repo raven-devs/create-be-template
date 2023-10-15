@@ -1,6 +1,6 @@
 {
   "userId": "raven-devs",
-  "repoId": "docker-nodejs-dev-env",
-  "repoDescription": "Docker Nodejs development environment",
-  "repoKeywords": ["docker", "nodejs"]
+  "repoId": "git",
+  "repoDescription": "git",
+  "repoKeywords": ["git", "github"]
 }
