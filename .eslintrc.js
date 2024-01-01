@@ -44,6 +44,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/consistent-type-definitions': 'warn',
+    '@typescript-eslint/no-empty-function': 'off',
     'import/export': 'warn',
     'import/no-deprecated': 'warn',
     'import/no-empty-named-blocks': 'warn',

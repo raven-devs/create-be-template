@@ -33,7 +33,6 @@ const execCommand = async (command, options) => {
 
 const main = async () => {
   try {
-    console.log('start');
     await logger.clear();
 
     if (!userId || !repoId) {
