@@ -1,6 +1,6 @@
 {
   "userId": "raven-devs",
-  "repoId": "http",
-  "repoDescription": "http",
-  "repoKeywords": ["http"]
+  "repoId": "class-transformer-class-validator",
+  "repoDescription": "class-transformer, class-validator",
+  "repoKeywords": ["class-transformer", "class-validator"]
 }
